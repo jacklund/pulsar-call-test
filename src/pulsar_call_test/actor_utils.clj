@@ -16,7 +16,6 @@
   (try
     (let [spawned-actor (actors/spawn (actor-fn actor-key) :name actor-key)]
       (actors/add-child! @supervisor actor-key :transient 60 1 :sec 60000 spawned-actor)
-      (actors/register! actor-key spawned-actor)
       (swap! registered-actors assoc actor-key spawned-actor)
       spawned-actor)
     (catch Exception e
