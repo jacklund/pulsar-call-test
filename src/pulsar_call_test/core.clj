@@ -16,12 +16,10 @@
       (init [_])
 
       (handle-call [_ from id message]
-        (do
-          ; (log/info "actor" actor-id "handling message" message)
-          :success)))))
+          :success))))
 
 (defn find-actor [id]
-  (actor-utils/actor actor id))
+  (actor-utils/find-actor id))
 
 (defn handle-message [thread-name message]
   (let [id (:id message)
@@ -35,6 +33,10 @@
         (log/error e "Error calling actor, message" message)))))
 
 (def ids (range 10))
+
+(defn create-actors []
+  (doseq [id ids]
+    (actor-utils/create-actor actor (str id))))
 
 (defn generate-message [id message-id]
   {:id (str id) :value {:message-id message-id :data "something"}})
@@ -55,4 +57,5 @@
   (create-message-thread "B"))
 
 (defn -main [& args]
+  (create-actors)
   (start-processing))
