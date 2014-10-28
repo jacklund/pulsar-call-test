@@ -6,7 +6,6 @@
 (defn spawn-supervisor []
   (actors/spawn (actors/supervisor :one-for-one (fn [] []))))
 
-(def actor-registry-lock (Object.))
 (def registered-actors (atom {}))
 (def supervisor (atom (spawn-supervisor)))
 
